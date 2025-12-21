@@ -1,0 +1,54 @@
+import streamlit as st
+from groq import Groq
+
+st.set_page_config(page_title="Groq Chatbot", page_icon="⚡")
+st.title("Groq-Powered Assistant")
+
+# Sidebar for API Key and Model Selection
+with st.sidebar:
+    api_key = st.text_input("Enter Groq API Key:", type="password")
+    model = st.selectbox("Choose a model:", ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"])
+
+# Initialize Chat History
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Display previous messages
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# User Input
+if prompt := st.chat_input("How can I help you today?"):
+    if not api_key:
+        st.error("Please enter your Groq API Key in the sidebar!")
+    else:
+        client = Groq(api_key=api_key)
+        
+        # Add user message to history
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        # Generate Assistant Response
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            full_response = ""
+            
+            # Request streaming completion
+            completion = client.chat.completions.create(
+                model=model,
+                messages=st.session_state.messages,
+                stream=True,
+            )
+
+            for chunk in completion:
+                content = chunk.choices[0].delta.content
+                if content:
+                    full_response += content
+                    message_placeholder.markdown(full_response + "▌")
+            
+            message_placeholder.markdown(full_response)
+        
+        # Save assistant response to history
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
