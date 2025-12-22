@@ -1,7 +1,7 @@
 import streamlit as st
 from groq import Groq
 
-st.set_page_config(page_title="Groq Chatbot", page_icon="⚡")
+st.set_page_config(page_title="Groq Chatbot", page_icon="💬")
 st.title("Groq-Powered Assistant")
 
 # Sidebar for API Key and Model Selection
