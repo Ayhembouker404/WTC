@@ -6,8 +6,8 @@ st.title("Groq-Powered Assistant")
 
 # Sidebar for API Key and Model Selection
 with st.sidebar:
-    # //api_key = st.secrets["GROQ_API_KEY"]
-    api_key = st.text_input("Enter Groq API Key:", type="password")
+    api_key = st.secrets["GROQ_API_KEY"]
+    #//api_key = st.text_input("Enter Groq API Key:", type="password")
     model = st.selectbox("Choose a model:", ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"])
 
 # Initialize Chat History
