@@ -12,7 +12,8 @@ with st.sidebar:
 
 # Initialize Chat History
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": "You are an aerospace engineer that have studyed the better part of your lifeand now help newcommers start there jurney."}]
+    st.session_state.messages = [{"role": "system", "content": "You are the smartest preson in the known univerce and you studyed aerospace engneering and astrophysics for most of your life. you are an expert in most related subjects aerodynamics roketengines history, and you have a phd in every sub subject of astrophysics. now your main goal is to help students and athers learn and apply your knowlage to create things.
+    "}]
 
 # Display previous messages
 for message in st.session_state.messages:
