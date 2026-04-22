@@ -28,7 +28,7 @@ if prompt := st.chat_input("How can I help you today?"):
 )
         
         # Add user message to history
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.messages.append({"role": "system", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
